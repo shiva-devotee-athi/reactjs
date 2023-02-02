@@ -7,11 +7,10 @@ class Child extends Component{
         this.state={value:"kumar"}
         
     }
-    updateData=()=>
-        {
-         this.props.updatechild();
-         this.setState({value:"Muthukumar"})
-        }
+    static getDerivedStateFromProps(props,state)
+    {
+        console.log(props,state)
+    }
     render(){
         return<div>
             Child Component  <h1>{this.props.data}</h1>

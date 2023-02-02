@@ -1,10 +1,8 @@
 import React from 'react'
-import './Sample.css'
 
- function Sample (){
+function Sample (){
     return(
-        <div className="one">
-            <p style ={{color :'red', backgroundColor:"black"} }>kumar</p>
+        <div>
             hello
         </div>
         

@@ -1,36 +1,32 @@
-import React, { useState } from 'react'
-// import Menuitem from './joeskitchen.js/MenuItem';
-import Navbar from './joeskitchen.js/Navbar';
-import Products from './joeskitchen.js/Products';
-import Slider from './joeskitchen.js/Slider';
-import './index.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Veg from './joeskitchen.js/Veg';
+import Slider from './joeskitchen.js/Slider'
+import Navbar from './joeskitchen.js/Navbar'
+import MenuItem from './joeskitchen.js/MenuItem'
+import Products from './joeskitchen.js/Products'
+import { Route, Routes } from 'react-router-dom'
 
+import './App.css'
+import { useState } from 'react'
 
-function App() {
-  const [filters, setFilters]= useState('')
- 
-  return (
-    <div className="App">
-      <Navbar/>
-      <Slider/>
-      {/* <Menuitem setFilters={setFilters}/> */}
-     
-      <Products filters={filters}/>
-      <BrowserRouter>
-      <Routes>
-        <Route path='/veg' element={ <Veg setFilters={setFilters}/>}></Route>
-      </Routes>
-      </BrowserRouter>
+// import Parent from './Parent'
+// import Child from './Child'
+export default function App() {
+  const [cartItems, setCartItems] = useState([{empty:true}])
 
-      
+  console.log(cartItems,"cart items");
+return (
+    <div>
+        <Navbar/>
+        <Slider/>
+        <MenuItem />
+        <Routes>
+          <Route path="/" element={<></>}></Route>
+          <Route path="/products" element={<Products/>}></Route>
+          <Route path="/products/:id" element={<Products setCartItems={setCartItems} cartItems={cartItems} />}/>
+        </Routes>
         
+        {/* <Parent/>
+        <Child/> */}
         
-      
-</div>
-      
-  );
+    </div>
+  )
 }
-
-export default App;
