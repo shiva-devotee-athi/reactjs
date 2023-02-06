@@ -36,7 +36,7 @@ function Cart({ CartDetails,setCartDetails}) {
               </p>
               <i className="fa fa-minus" onClick={()=>decrement(e)}></i>
             </div>
-          </div>
+          </div> 
         }) }
     </div>
     </div>
