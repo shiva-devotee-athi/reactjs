@@ -61,7 +61,7 @@ return (
           <Route path="/products" element={<Products/>}></Route>
           <Route path="/products/:id" element={<Products products={products} isPending={isPending} CheckIsCart={CheckIsCart} handleFavourite={handleFavourite} AddtoCart={AddtoCart}/>}/>
         </Routes>
-        {CartOpen &&  <Cart CartDetails={CartDetails} setCartDetails={setCartDetails} />}
+        {CartOpen &&  <Cart CartDetails={CartDetails} setCartDetails={setCartDetails}  setCartOpen={setCartOpen}/>}
         
           
 </div>
