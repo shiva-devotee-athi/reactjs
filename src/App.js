@@ -2,18 +2,38 @@ import Slider from './joeskitchen.js/Slider'
 import Navbar from './joeskitchen.js/Navbar'
 import MenuItem from './joeskitchen.js/MenuItem'
 import Products from './joeskitchen.js/Products'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes,useNavigate } from 'react-router-dom'
 import './App.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Cart from './joeskitchen.js/Cart'
+import {useAuthState} from 'react-firebase-hooks/auth'
+import {auth} from './firebase/firebase'
+import Login from './joeskitchen.js/Login'
 
 export default function App() {
   const [products,setProducts]=useState([])
   const [isPending,setIsPending]=useState(true)
   const [CartOpen,setCartOpen]=useState(false);
   const [CartDetails,setCartDetails]=useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+
+  const [user, loading] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(loading){
+      setIsLoading(true)
+      return
+    }
+    if(user){
+      setIsLoading(false)
+      navigate('/products/Latest')
+    } else{
+      navigate('/')
+    }
+  },[user, loading])
 
   useEffect(()=>{
     response()
@@ -53,9 +73,12 @@ const response = ()=>
           }
 return (
     <div>
+        {user&&<>
         <Navbar setCartOpen={setCartOpen}/>
         <Slider/>
         <MenuItem />
+        </>}
+        {!user && <Login/>}
         <Routes>
           <Route path="/" element={<></>}></Route>
           <Route path="/products" element={<Products/>}></Route>
