@@ -1,4 +1,4 @@
-import{GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword,} from 'firebase/auth'
+import{GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth'
 
 import {initializeApp} from 'firebase/app'
 
@@ -41,19 +41,38 @@ const firebaseConfig = {
     }
   }
 
-  const logInWithEmailAndPassword= async(email, password)=>{
+
+  const registerWithEmailAndPassword = async (name, email, password) => {
     try {
-     await signInWithEmailAndPassword(auth, email, password)
-      
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name,
+        authProvider: "local",
+        email,
+      });
     } catch (err) {
-        console.log('error with logInEmailAndPassword');
+      console.error(err);
+      alert(err.message);
     }
-  }
+  };
+  // const sendPasswordReset = async (email) => {
+  //   try {
+  //     await sendPasswordResetEmail(auth, email);
+  //     alert("Password reset link sent!");
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert(err.message);
+  //   }
+  // };
 
   
   export {
     auth,
     db,
     signInWithGoogle,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    registerWithEmailAndPassword,
+    sendPasswordResetEmail
   }

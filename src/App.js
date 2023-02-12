@@ -10,6 +10,8 @@ import Cart from './joeskitchen.js/Cart'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth} from './firebase/firebase'
 import Login from './joeskitchen.js/Login'
+import Register from './joeskitchen.js/Register'
+import Reset from './joeskitchen.js/Reset'
 
 export default function App() {
   const [products,setProducts]=useState([])
@@ -78,9 +80,13 @@ return (
         <Slider/>
         <MenuItem />
         </>}
-        {!user && <Login/>}
         <Routes>
-          <Route path="/" element={<></>}></Route>
+        {!user && <> 
+                    <Route path='/' element={<Login user={user} loading={loading} setIsLoading={setIsLoading}/>}></Route> 
+                    <Route path='/register' element={<Register user={user} loading={loading} setIsLoading={setIsLoading}/>}></Route> 
+                    <Route path='/reset' element={<Reset user={user} loading={loading} setIsLoading={setIsLoading}/>} ></Route>
+                  </>}
+          {/* <Route path="/" element={<></>}></Route> */}
           <Route path="/products" element={<Products/>}></Route>
           <Route path="/products/:id" element={<Products products={products} isPending={isPending} CheckIsCart={CheckIsCart} handleFavourite={handleFavourite} AddtoCart={AddtoCart}/>}/>
         </Routes>
